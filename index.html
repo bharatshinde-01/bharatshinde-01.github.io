@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bharat | Coding Portfolio</title>
+  <meta name="description" content="Bharat Shinde - BBA(CA) student learning Python, Java and C++. Browse my GitHub projects.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='10' fill='%237c9cff'/%3E%3Ctext x='20' y='29' text-anchor='middle' font-family='Arial' font-weight='800' font-size='25' fill='%230b1020'%3EB%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=DM+Sans:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #0e1220;
+      --surface: #161b2e;
+      --line: #262d47;
+      --text: #e9ecf5;
+      --muted: #98a2bd;
+      --accent: #7c9cff;
+      --amber: #ffb86b;
+      --radius: 14px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: "DM Sans", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a { color: inherit; }
+    a:focus-visible, .btn:focus-visible {
+      outline: 2px solid var(--amber);
+      outline-offset: 3px;
+    }
+
+    .wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+
+    /* ---------- Nav ---------- */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 22px 0;
+    }
+    .logo {
+      font-family: "Bricolage Grotesque", sans-serif;
+      font-weight: 800;
+      font-size: 20px;
+      text-decoration: none;
+    }
+    .nav-link {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 15px;
+      transition: color .2s;
+    }
+    .nav-link:hover { color: var(--text); }
+
+    /* ---------- Hero ---------- */
+    .hero {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 48px;
+      align-items: center;
+      padding: 56px 0 72px;
+    }
+
+    h1 {
+      font-family: "Bricolage Grotesque", sans-serif;
+      font-weight: 800;
+      font-size: clamp(40px, 6vw, 68px);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin: 0 0 18px;
+    }
+    .wave { display: inline-block; transform-origin: 70% 70%; animation: wave 2.4s ease-in-out 0.6s 2; }
+    @keyframes wave {
+      0%, 60%, 100% { transform: rotate(0); }
+      10%, 30% { transform: rotate(16deg); }
+      20% { transform: rotate(-10deg); }
+      40% { transform: rotate(10deg); }
+      50% { transform: rotate(-4deg); }
+    }
+
+    .lead { color: var(--muted); font-size: 18px; max-width: 46ch; margin: 0 0 30px; }
+
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 22px;
+      border-radius: 10px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: transform .2s, background .2s, border-color .2s;
+    }
+    .btn-primary { background: var(--accent); color: #0b1020; }
+    .btn-primary:hover { transform: translateY(-2px); background: #96b0ff; }
+    .btn-ghost { border: 1px solid var(--line); }
+    .btn-ghost:hover { border-color: var(--accent); }
+    .btn svg { width: 18px; height: 18px; fill: currentColor; }
+
+    /* ---------- Code window (the one big animation) ---------- */
+    .code-win {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 30px 60px -30px rgba(0, 0, 0, .6);
+    }
+    .code-bar {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--line);
+    }
+    .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--line); }
+    .code-bar .file {
+      margin-left: auto;
+      font: 400 13px "JetBrains Mono", monospace;
+      color: var(--muted);
+    }
+    pre {
+      margin: 0;
+      padding: 22px 20px;
+      min-height: 190px;
+      font: 400 14.5px/1.75 "JetBrains Mono", monospace;
+      white-space: pre-wrap;
+      color: var(--text);
+    }
+    .kw { color: var(--accent); }
+    .str { color: var(--amber); }
+    .cm { color: #6b7694; }
+    .caret {
+      display: inline-block;
+      width: 8px;
+      height: 1.1em;
+      background: var(--amber);
+      vertical-align: text-bottom;
+      animation: blink 1s steps(1) infinite;
+    }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    /* ---------- Skills ---------- */
+    .skills { padding-bottom: 64px; }
+    .chips { display: flex; flex-wrap: wrap; gap: 12px; }
+    .chip {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px 10px 12px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      font-weight: 500;
+      font-size: 15px;
+      transition: border-color .2s, transform .2s;
+    }
+    .chip:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .chip img { width: 26px; height: 26px; }
+    .chip .inv { filter: invert(1); }
+
+    /* ---------- Projects ---------- */
+    section h2 {
+      font-family: "Bricolage Grotesque", sans-serif;
+      font-size: 30px;
+      margin: 0 0 8px;
+    }
+    .sub { color: var(--muted); margin: 0 0 28px; }
+
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      --c: var(--accent);
+      display: flex;
+      flex-direction: column;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-top: 3px solid var(--c);
+      border-radius: var(--radius);
+      padding: 24px;
+      text-decoration: none;
+      transition: transform .25s, border-color .25s;
+    }
+    .card:hover { transform: translateY(-4px); border-color: var(--c); }
+    .card img {
+      width: 60px;
+      height: 60px;
+      padding: 12px;
+      margin-bottom: 18px;
+      background: rgba(255, 255, 255, .05);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      transition: border-color .25s, background .25s;
+    }
+    .card:hover img { border-color: var(--c); background: rgba(255, 255, 255, .08); }
+    .card h3 {
+      font-family: "Bricolage Grotesque", sans-serif;
+      font-size: 22px;
+      margin: 0 0 6px;
+    }
+    .card p { color: var(--muted); font-size: 15px; margin: 0 0 20px; flex: 1; }
+    .card .go { color: var(--c); font-weight: 500; font-size: 15px; }
+    .card .go span { display: inline-block; transition: transform .25s; }
+    .card:hover .go span { transform: translate(3px, -3px); }
+
+    .py   { --c: #ffd43b; }
+    .java { --c: #ff8a5c; }
+    .cpp  { --c: #6aa7ff; }
+    .proj { --c: #b69cff; }
+
+    /* ---------- Footer ---------- */
+    .cta {
+      margin: 80px 0 0;
+      padding: 36px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .cta h2 { font-size: 24px; margin: 0 0 4px; }
+    .cta p { margin: 0; color: var(--muted); }
+    footer { color: var(--muted); font-size: 14px; padding: 36px 0 44px; }
+
+    /* ---------- Centered layout ---------- */
+    .hero {
+      grid-template-columns: 1fr;
+      justify-items: center;
+      text-align: center;
+      gap: 44px;
+      padding: 48px 0 64px;
+    }
+    .lead { margin-left: auto; margin-right: auto; }
+    .actions { justify-content: center; }
+    .code-win { width: 100%; max-width: 580px; text-align: left; }
+
+    section h2, .sub { text-align: center; }
+    .chips { justify-content: center; }
+
+    .card { align-items: center; text-align: center; }
+    .card img { margin: 0 auto 18px; }
+
+    .cta { flex-direction: column; text-align: center; justify-content: center; }
+    footer { text-align: center; }
+
+    /* ---------- Image hero ---------- */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      min-height: min(88vh, 740px);
+      padding: 0;
+      gap: 0;
+      background:
+        linear-gradient(180deg, rgba(14,18,32,.60) 0%, rgba(14,18,32,.72) 55%, var(--bg) 100%),
+        url("hero.jpg") center / cover no-repeat;
+    }
+    .hero-inner { display: flex; flex-direction: column; flex: 1; width: 100%; }
+    .hero-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 0 96px;
+      text-align: center;
+    }
+    .hero .lead { color: #c9d1e6; }
+    .logo { display: flex; align-items: center; gap: 10px; }
+    .logo svg { width: 38px; height: 38px; }
+    .nav-links { display: flex; align-items: center; gap: 22px; }
+    .nav-pill {
+      padding: 8px 16px;
+      color: var(--text);
+      border: 1px solid rgba(255,255,255,.25);
+      border-radius: 999px;
+      background: rgba(14,18,32,.35);
+      backdrop-filter: blur(6px);
+    }
+    .nav-pill:hover { border-color: var(--accent); }
+    .hero .btn-ghost { background: rgba(14,18,32,.35); border-color: rgba(255,255,255,.25); backdrop-filter: blur(6px); }
+
+    /* ---------- Hero code window + language tabs ---------- */
+    .hero .code-win {
+      margin-top: 40px;
+      background: rgba(22, 27, 46, .86);
+      backdrop-filter: blur(8px);
+    }
+    .code-bar img { width: 20px; height: 20px; margin-left: 10px; }
+    .code-bar .file { margin-left: 0; }
+    .hero pre { min-height: 235px; }
+    .lang-tabs { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 16px; }
+    .lang-tab {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, .22);
+      background: rgba(14, 18, 32, .5);
+      color: var(--muted);
+      font: 500 14px "DM Sans", sans-serif;
+      cursor: pointer;
+      transition: color .2s, border-color .2s, background .2s;
+    }
+    .lang-tab img { width: 20px; height: 20px; }
+    .lang-tab:hover, .lang-tab.active { color: var(--text); border-color: var(--accent); }
+    .lang-tab.active { background: rgba(124, 156, 255, .18); }
+    .lang-tab:focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; }
+
+    /* ---------- Left-aligned layout ---------- */
+    .hero-body {
+      display: grid;
+      grid-template-columns: 1.05fr 1fr;
+      gap: 48px;
+      align-items: center;
+      align-content: center;
+      text-align: left;
+      padding: 24px 0 88px;
+    }
+    .hero .lead { margin-left: 0; margin-right: 0; }
+    .hero .actions { justify-content: flex-start; }
+    .hero .code-win { margin-top: 0; max-width: none; }
+    .lang-tabs { justify-content: flex-start; }
+
+    section h2, .sub { text-align: left; }
+    .chips { justify-content: flex-start; }
+    .card { align-items: flex-start; text-align: left; }
+    .card img { margin: 0 0 18px; }
+    .cta { flex-direction: row; text-align: left; justify-content: space-between; }
+    footer { text-align: left; }
+
+    @media (max-width: 800px) {
+      .hero-body { grid-template-columns: 1fr; gap: 36px; }
+      .cta { flex-direction: column; align-items: flex-start; }
+    }
+
+    /* ---------- Responsive + motion ---------- */
+    @media (max-width: 800px) {
+      .hero { grid-template-columns: 1fr; padding-top: 24px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap-full">
+    <header class="hero">
+      <div class="hero-inner wrap">
+        <nav>
+          <a class="logo" href="#" aria-label="Bharat home">
+            <svg viewBox="0 0 40 40" aria-hidden="true">
+              <defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7c9cff"/><stop offset="1" stop-color="#b69cff"/></linearGradient></defs>
+              <rect width="40" height="40" rx="10" fill="url(#lg)"/>
+              <text x="20" y="28.5" text-anchor="middle" font-family="Bricolage Grotesque, Arial, sans-serif" font-weight="800" font-size="25" fill="#0b1020">B</text>
+            </svg>
+            <span>Bharat</span>
+          </a>
+          <div class="nav-links">
+            <a class="nav-link" href="#projects">Projects</a>
+            <a class="nav-link nav-pill" href="https://github.com/bharatshinde-01" target="_blank" rel="noopener noreferrer">GitHub profile ↗</a>
+          </div>
+        </nav>
+
+        <div class="hero-body">
+          <div class="hero-text">
+          <h1>Hi, I'm Bharat <span class="wave">👋</span></h1>
+          <p class="lead">BBA(CA) student learning programming. Here you can see my Python, Java and C++ practice work and my projects.</p>
+          <div class="actions">
+            <a class="btn btn-primary" href="https://github.com/bharatshinde-01" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+              Visit my GitHub profile
+            </a>
+            <a class="btn btn-ghost" href="#projects">See my work</a>
+          </div>
+
+          </div>
+
+          <div class="hero-code">
+          <div class="code-win">
+            <div class="code-bar">
+              <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+              <img id="langLogo" data-logo="python" alt="Python logo">
+              <span class="file" id="fileName">about_me.py</span>
+            </div>
+            <pre aria-label="Code about Bharat"><code id="code"></code><span class="caret"></span></pre>
+          </div>
+          <div class="lang-tabs" role="group" aria-label="Choose language">
+            <button class="lang-tab active" type="button" data-i="0" aria-pressed="true"><img data-logo="python" alt="">Python</button>
+            <button class="lang-tab" type="button" data-i="1" aria-pressed="false"><img data-logo="java" alt="">Java</button>
+            <button class="lang-tab" type="button" data-i="2" aria-pressed="false"><img data-logo="cplusplus" alt="">C++</button>
+          </div>
+          </div>
+        </div>
+      </div>
+    </header>
+  </div>
+
+  <div class="wrap">
+
+
+    <section class="skills">
+      <h2>Languages &amp; tools</h2>
+      <p class="sub">What I am learning and using.</p>
+      <div class="chips">
+        <div class="chip"><img data-logo="python" alt="" width="26" height="26">Python</div>
+        <div class="chip"><img data-logo="java" alt="" width="26" height="26">Java</div>
+        <div class="chip"><img data-logo="cplusplus" alt="" width="26" height="26">C++</div>
+        <div class="chip"><img data-logo="html5" alt="" width="26" height="26">HTML5</div>
+        <div class="chip"><img data-logo="css3" alt="" width="26" height="26">CSS3</div>
+        <div class="chip"><img data-logo="git" alt="" width="26" height="26">Git</div>
+        <div class="chip"><img class="inv" data-logo="github" alt="" width="26" height="26">GitHub</div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <h2>My repositories</h2>
+      <p class="sub">Click a card to open the repository on GitHub.</p>
+
+      <div class="projects">
+        <a class="card py" href="https://github.com/bharatshinde-01/PY" target="_blank" rel="noopener noreferrer">
+          <img data-logo="python" alt="Python logo">
+          <h3>Python</h3>
+          <p>Python programs and practice projects.</p>
+          <span class="go">Open repository <span>↗</span></span>
+        </a>
+
+        <a class="card java" href="https://github.com/bharatshinde-01/JAVA" target="_blank" rel="noopener noreferrer">
+          <img data-logo="java" alt="Java logo">
+          <h3>Java</h3>
+          <p>Core Java programs and OOP practice.</p>
+          <span class="go">Open repository <span>↗</span></span>
+        </a>
+
+        <a class="card cpp" href="https://github.com/bharatshinde-01/Cpp" target="_blank" rel="noopener noreferrer">
+          <img data-logo="cplusplus" alt="C++ logo">
+          <h3>C++</h3>
+          <p>C++ fundamentals and programming exercises.</p>
+          <span class="go">Open repository <span>↗</span></span>
+        </a>
+
+        <a class="card proj" href="https://github.com/bharatshinde-01/Project-s" target="_blank" rel="noopener noreferrer">
+          <img data-logo="github" alt="GitHub logo" style="filter: invert(1);">
+          <h3>Projects</h3>
+          <p>Explore my coding projects and creations.</p>
+          <span class="go">Open projects <span>↗</span></span>
+        </a>
+      </div>
+    </section>
+
+    <div class="cta">
+      <div>
+        <h2>Want to see everything?</h2>
+        <p>All my code, commits and new repositories are on my profile.</p>
+      </div>
+      <a class="btn btn-primary" href="https://github.com/bharatshinde-01" target="_blank" rel="noopener noreferrer">Visit my GitHub profile</a>
+    </div>
+
+    <footer>© <span id="year"></span> Bharat. Built with HTML and CSS, hosted on GitHub Pages.</footer>
+  </div>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    var LOGOS = {"python": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjggMTI4Ij48bGluZWFyR3JhZGllbnQgaWQ9InB5dGhvbi1vcmlnaW5hbC1hIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjcwLjI1MiIgeTE9IjEyMzcuNDc2IiB4Mj0iMTcwLjY1OSIgeTI9IjExNTEuMDg5IiBncmFkaWVudFRyYW5zZm9ybT0ibWF0cml4KC41NjMgMCAwIC0uNTY4IC0yOS4yMTUgNzA3LjgxNykiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iIzVBOUZENCIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzMwNjk5OCIvPjwvbGluZWFyR3JhZGllbnQ+PGxpbmVhckdyYWRpZW50IGlkPSJweXRob24tb3JpZ2luYWwtYiIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIHgxPSIyMDkuNDc0IiB5MT0iMTA5OC44MTEiIHgyPSIxNzMuNjIiIHkyPSIxMTQ5LjUzNyIgZ3JhZGllbnRUcmFuc2Zvcm09Im1hdHJpeCguNTYzIDAgMCAtLjU2OCAtMjkuMjE1IDcwNy44MTcpIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNGRkQ0M0IiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNGRkU4NzMiLz48L2xpbmVhckdyYWRpZW50PjxwYXRoIGZpbGw9InVybCgjcHl0aG9uLW9yaWdpbmFsLWEpIiBkPSJNNjMuMzkxIDEuOTg4Yy00LjIyMi4wMi04LjI1Mi4zNzktMTEuOCAxLjAwNy0xMC40NSAxLjg0Ni0xMi4zNDYgNS43MS0xMi4zNDYgMTIuODM3djkuNDExaDI0LjY5M3YzLjEzN0gyOS45NzdjLTcuMTc2IDAtMTMuNDYgNC4zMTMtMTUuNDI2IDEyLjUyMS0yLjI2OCA5LjQwNS0yLjM2OCAxNS4yNzUgMCAyNS4wOTYgMS43NTUgNy4zMTEgNS45NDcgMTIuNTE5IDEzLjEyNCAxMi41MTloOC40OTFWNjcuMjM0YzAtOC4xNTEgNy4wNTEtMTUuMzQgMTUuNDI2LTE1LjM0aDI0LjY2NWM2Ljg2NiAwIDEyLjM0Ni01LjY1NCAxMi4zNDYtMTIuNTQ4VjE1LjgzM2MwLTYuNjkzLTUuNjQ2LTExLjcyLTEyLjM0Ni0xMi44MzctNC4yNDQtLjcwNi04LjY0NS0xLjAyNy0xMi44NjYtMS4wMDh6TTUwLjAzNyA5LjU1N2MyLjU1IDAgNC42MzQgMi4xMTcgNC42MzQgNC43MjEgMCAyLjU5My0yLjA4MyA0LjY5LTQuNjM0IDQuNjktMi41NiAwLTQuNjMzLTIuMDk3LTQuNjMzLTQuNjktLjAwMS0yLjYwNCAyLjA3My00LjcyMSA0LjYzMy00LjcyMXoiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAgMTAuMjYpIi8+PHBhdGggZmlsbD0idXJsKCNweXRob24tb3JpZ2luYWwtYikiIGQ9Ik05MS42ODIgMjguMzh2MTAuOTY2YzAgOC41LTcuMjA4IDE1LjY1NS0xNS40MjYgMTUuNjU1SDUxLjU5MWMtNi43NTYgMC0xMi4zNDYgNS43ODMtMTIuMzQ2IDEyLjU0OXYyMy41MTVjMCA2LjY5MSA1LjgxOCAxMC42MjggMTIuMzQ2IDEyLjU0NyA3LjgxNiAyLjI5NyAxNS4zMTIgMi43MTMgMjQuNjY1IDAgNi4yMTYtMS44MDEgMTIuMzQ2LTUuNDIzIDEyLjM0Ni0xMi41NDd2LTkuNDEySDYzLjkzOHYtMy4xMzhoMzcuMDEyYzcuMTc2IDAgOS44NTItNS4wMDUgMTIuMzQ4LTEyLjUxOSAyLjU3OC03LjczNSAyLjQ2Ny0xNS4xNzQgMC0yNS4wOTYtMS43NzQtNy4xNDUtNS4xNjEtMTIuNTIxLTEyLjM0OC0xMi41MjFoLTkuMjY4ek03Ny44MDkgODcuOTI3YzIuNTYxIDAgNC42MzQgMi4wOTcgNC42MzQgNC42OTIgMCAyLjYwMi0yLjA3NCA0LjcxOS00LjYzNCA0LjcxOS0yLjU1IDAtNC42MzMtMi4xMTctNC42MzMtNC43MTkgMC0yLjU5NSAyLjA4My00LjY5MiA0LjYzMy00LjY5MnoiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAgMTAuMjYpIi8+PHJhZGlhbEdyYWRpZW50IGlkPSJweXRob24tb3JpZ2luYWwtYyIgY3g9IjE4MjUuNjc4IiBjeT0iNDQ0LjQ1IiByPSIyNi43NDMiIGdyYWRpZW50VHJhbnNmb3JtPSJtYXRyaXgoMCAtLjI0IC0xLjA1NSAwIDUzMi45NzkgNTU3LjU3NikiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNCOEI4QjgiIHN0b3Atb3BhY2l0eT0iLjQ5OCIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzdGN0Y3RiIgc3RvcC1vcGFjaXR5PSIwIi8+PC9yYWRpYWxHcmFkaWVudD48cGF0aCBvcGFjaXR5PSIuNDQ0IiBmaWxsPSJ1cmwoI3B5dGhvbi1vcmlnaW5hbC1jKSIgZD0iTTk3LjMwOSAxMTkuNTk3YzAgMy41NDMtMTQuODE2IDYuNDE2LTMzLjA5MSA2LjQxNi0xOC4yNzYgMC0zMy4wOTItMi44NzMtMzMuMDkyLTYuNDE2IDAtMy41NDQgMTQuODE1LTYuNDE3IDMzLjA5Mi02LjQxNyAxOC4yNzUgMCAzMy4wOTEgMi44NzIgMzMuMDkxIDYuNDE3eiIvPjwvc3ZnPgo=", "java": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjggMTI4Ij48cGF0aCBmaWxsPSIjMDA3NEJEIiBkPSJNNDcuNjE3IDk4LjEycy00Ljc2NyAyLjc3NCAzLjM5NyAzLjcxYzkuODkyIDEuMTMgMTQuOTQ3Ljk2OCAyNS44NDUtMS4wOTIgMCAwIDIuODcxIDEuNzk1IDYuODczIDMuMzUxLTI0LjQzOSAxMC40Ny01NS4zMDgtLjYwNy0zNi4xMTUtNS45Njl6bS0yLjk4OC0xMy42NjVzLTUuMzQ4IDMuOTU5IDIuODIzIDQuODA1YzEwLjU2NyAxLjA5MSAxOC45MSAxLjE4IDMzLjM1NC0xLjYgMCAwIDEuOTkzIDIuMDI1IDUuMTMyIDMuMTMxLTI5LjU0MiA4LjY0LTYyLjQ0Ni42OC00MS4zMDktNi4zMzZ6Ii8+PHBhdGggZmlsbD0iI0VBMkQyRSIgZD0iTTY5LjgwMiA2MS4yNzFjNi4wMjUgNi45MzUtMS41OCAxMy4xNy0xLjU4IDEzLjE3czE1LjI4OS03Ljg5MSA4LjI2OS0xNy43NzdjLTYuNTU5LTkuMjE1LTExLjU4Ny0xMy43OTIgMTUuNjM1LTI5LjU4IDAgLjAwMS00Mi43MzEgMTAuNjctMjIuMzI0IDM0LjE4N3oiLz48cGF0aCBmaWxsPSIjMDA3NEJEIiBkPSJNMTAyLjEyMyAxMDguMjI5czMuNTI5IDIuOTEtMy44ODggNS4xNTljLTE0LjEwMiA0LjI3Mi01OC43MDYgNS41Ni03MS4wOTQuMTcxLTQuNDUxLTEuOTM4IDMuODk5LTQuNjI1IDYuNTI2LTUuMTkyIDIuNzM5LS41OTMgNC4zMDMtLjQ4NSA0LjMwMy0uNDg1LTQuOTUzLTMuNDg3LTMyLjAxMyA2Ljg1LTEzLjc0MyA5LjgxNSA0OS44MjEgOC4wNzYgOTAuODE3LTMuNjM3IDc3Ljg5Ni05LjQ2OHpNNDkuOTEyIDcwLjI5NHMtMjIuNjg2IDUuMzg5LTguMDMzIDcuMzQ4YzYuMTg4LjgyOCAxOC41MTguNjM4IDMwLjAxMS0uMzI2IDkuMzktLjc4OSAxOC44MTMtMi40NzQgMTguODEzLTIuNDc0cy0zLjMwOCAxLjQxOS01LjcwNCAzLjA1M2MtMjMuMDQyIDYuMDYxLTY3LjU0NCAzLjIzOC01NC43MzEtMi45NTggMTAuODMyLTUuMjM5IDE5LjY0NC00LjY0MyAxOS42NDQtNC42NDN6bTQwLjY5NyAyMi43NDdjMjMuNDIxLTEyLjE2NyAxMi41OTEtMjMuODYgNS4wMzItMjIuMjg1LTEuODQ4LjM4NS0yLjY3Ny43Mi0yLjY3Ny43MnMuNjg4LTEuMDc5IDItMS41NDNjMTQuOTUzLTUuMjU1IDI2LjQ1MSAxNS41MDMtNC44MjMgMjMuNzI1IDAtLjAwMi4zNTktLjMyNy40NjgtLjYxN3oiLz48cGF0aCBmaWxsPSIjRUEyRDJFIiBkPSJNNzYuNDkxIDEuNTg3Uzg5LjQ1OSAxNC41NjMgNjQuMTg4IDM0LjUxYy0yMC4yNjYgMTYuMDA2LTQuNjIxIDI1LjEzLS4wMDcgMzUuNTU5LTExLjgzMS0xMC42NzMtMjAuNTA5LTIwLjA3LTE0LjY4OC0yOC44MTVDNTguMDQxIDI4LjQyIDgxLjcyMiAyMi4xOTUgNzYuNDkxIDEuNTg3eiIvPjxwYXRoIGZpbGw9IiMwMDc0QkQiIGQ9Ik01Mi4yMTQgMTI2LjAyMWMyMi40NzYgMS40MzcgNTctLjggNTcuODE3LTExLjQzNiAwIDAtMS41NzEgNC4wMzItMTguNTc3IDcuMjMxLTE5LjE4NiAzLjYxMi00Mi44NTQgMy4xOTEtNTYuODg3Ljg3NCAwIC4wMDEgMi44NzUgMi4zODEgMTcuNjQ3IDMuMzMxeiIvPjwvc3ZnPg==", "cplusplus": "data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMTI4IDEyOCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cGF0aCBmaWxsPSIjMDA1OTljIiBkPSJNMTE4Ljc2NiA5NS44MmMuODktMS41NDMgMS40NDEtMy4yOCAxLjQ0MS00Ljg0M1YzNi43OGMwLTEuNTU4LS41NS0zLjI5Ny0xLjQ0MS00Ljg0bC01NS4zMiAzMS45NFptMCAwIi8+CiAgPHBhdGggZmlsbD0iIzAwNDQ4MiIgZD0ibTY4LjM2IDEyNi41ODYgNDYuOTMzLTI3LjA5NGMxLjM1Mi0uNzgxIDIuNTgyLTIuMTI5IDMuNDczLTMuNjcybC01NS4zMi0zMS45NEw4LjEyIDk1LjgyYy44OSAxLjU0MyAyLjEyMSAyLjg5IDMuNDczIDMuNjcybDQ2LjkzMyAyNy4wOTRjMi43MDMgMS41NjIgNy4xMyAxLjU2MiA5LjgzMiAwWm0wIDAiLz4KICA8cGF0aCBmaWxsPSIjNjU5YWQyIiBkPSJNMTE4Ljc2NiAzMS45NDFjLS44OTEtMS41NDYtMi4xMjEtMi44OTQtMy40NzMtMy42NzFMNjguMzU5IDEuMTcyYy0yLjcwMy0xLjU2My03LjEyOS0xLjU2My05LjgzMiAwTDExLjU5NCAyOC4yN0M4Ljg5IDI5LjgyOCA2LjY4IDMzLjY2IDYuNjggMzYuNzh2NTQuMTk2YzAgMS41NjIuNTUgMy4zIDEuNDQxIDQuODQzTDYzLjQ0NSA2My44OFptMCAwIi8+CiAgPHBhdGggZmlsbD0iI2ZmZiIgZD0iTTYzLjQ0NSAyNi4wMzVjLTIwLjg2NyAwLTM3Ljg0MyAxNi45NzctMzcuODQzIDM3Ljg0NHMxNi45NzYgMzcuODQ0IDM3Ljg0MyAzNy44NDRjMTMuNDY1IDAgMjYuMDI0LTcuMjQ3IDMyLjc3LTE4LjkxTDc5Ljg0IDczLjMzNWMtMy4zOCA1Ljg0LTkuNjYgOS40NjUtMTYuMzk1IDkuNDY1LTEwLjQzMyAwLTE4LjkyMi04LjQ4OC0xOC45MjItMTguOTIyIDAtMTAuNDM0IDguNDktMTguOTIyIDE4LjkyMi0xOC45MjIgNi43MyAwIDEzLjAxNyAzLjYyOSAxNi4zOSA5LjQ2NWwxNi4zOC05LjQ3N2MtNi43NS0xMS42NjQtMTkuMzA1LTE4LjkxLTMyLjc3LTE4Ljkxek05Mi44OCA1Ny41N3Y0LjIwN2gtNC4yMDd2NC4yMDNoNC4yMDd2NC4yMDdoNC4yMDNWNjUuOThoNC4yMDN2LTQuMjAzaC00LjIwM1Y1Ny41N0g5Mi44OHptMTUuNzY2IDB2NC4yMDdoLTQuMjA0djQuMjAzaDQuMjA0djQuMjA3aDQuMjA3VjY1Ljk4aDQuMjAzdi00LjIwM2gtNC4yMDNWNTcuNTdoLTQuMjA3eiIvPgo8L3N2Zz4K", "html5": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjggMTI4Ij48cGF0aCBmaWxsPSIjRTQ0RDI2IiBkPSJNMTkuMDM3IDExMy44NzZMOS4wMzIgMS42NjFoMTA5LjkzNmwtMTAuMDE2IDExMi4xOTgtNDUuMDE5IDEyLjQ4eiIvPjxwYXRoIGZpbGw9IiNGMTY1MjkiIGQ9Ik02NCAxMTYuOGwzNi4zNzgtMTAuMDg2IDguNTU5LTk1Ljg3OEg2NHoiLz48cGF0aCBmaWxsPSIjRUJFQkVCIiBkPSJNNjQgNTIuNDU1SDQ1Ljc4OEw0NC41MyAzOC4zNjFINjRWMjQuNTk5SDI5LjQ4OWwuMzMgMy42OTIgMy4zODIgMzcuOTI3SDY0em0wIDM1Ljc0M2wtLjA2MS4wMTctMTUuMzI3LTQuMTQtLjk3OS0xMC45NzVIMzMuODE2bDEuOTI4IDIxLjYwOSAyOC4xOTMgNy44MjYuMDYzLS4wMTd6Ii8+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTYzLjk1MiA1Mi40NTV2MTMuNzYzaDE2Ljk0N2wtMS41OTcgMTcuODQ5LTE1LjM1IDQuMTQzdjE0LjMxOWwyOC4yMTUtNy44Mi4yMDctMi4zMjUgMy4yMzQtMzYuMjMzLjMzNS0zLjY5NmgtMy43MDh6bTAtMjcuODU2djEzLjc2MmgzMy4yNDRsLjI3Ni0zLjA5Mi42MjgtNi45NzguMzI5LTMuNjkyeiIvPjwvc3ZnPg==", "css3": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjggMTI4Ij48cGF0aCBmaWxsPSIjMTU3MkI2IiBkPSJNMTguODE0IDExNC4xMjNMOC43NiAxLjM1MmgxMTAuNDhsLTEwLjA2NCAxMTIuNzU0LTQ1LjI0MyAxMi41NDMtNDUuMTE5LTEyLjUyNnoiLz48cGF0aCBmaWxsPSIjMzNBOURDIiBkPSJNNjQuMDAxIDExNy4wNjJsMzYuNTU5LTEwLjEzNiA4LjYwMS05Ni4zNTRoLTQ1LjE2djEwNi40OXoiLz48cGF0aCBmaWxsPSIjZmZmIiBkPSJNNjQuMDAxIDUxLjQyOWgxOC4zMDJsMS4yNjQtMTQuMTYzSDY0LjAwMVYyMy40MzVoMzQuNjgybC0uMzMyIDMuNzExLTMuNCAzOC4xMTRoLTMwLjk1VjUxLjQyOXoiLz48cGF0aCBmaWxsPSIjRUJFQkVCIiBkPSJNNjQuMDgzIDg3LjM0OWwtLjA2MS4wMTgtMTUuNDAzLTQuMTU5LS45ODUtMTEuMDMxSDMzLjc1MmwxLjkzNyAyMS43MTcgMjguMzMxIDcuODYzLjA2My0uMDE4di0xNC4zOXoiLz48cGF0aCBmaWxsPSIjZmZmIiBkPSJNODEuMTI3IDY0LjY3NWwtMS42NjYgMTguNTIyLTE1LjQyNiA0LjE2NHYxNC4zOWwyOC4zNTQtNy44NTguMjA4LTIuMzM3IDIuNDA2LTI2Ljg4MUg4MS4xMjd6Ii8+PHBhdGggZmlsbD0iI0VCRUJFQiIgZD0iTTY0LjA0OCAyMy40MzV2MTMuODMxSDMwLjY0bC0uMjc3LTMuMTA4LS42My03LjAxMi0uMzMxLTMuNzExaDM0LjY0NnptLS4wNDcgMjcuOTk2djEzLjgzMUg0OC43OTJsLS4yNzctMy4xMDgtLjYzMS03LjAxMi0uMzMtMy43MTFoMTYuNDQ3eiIvPjwvc3ZnPg==", "git": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjggMTI4Ij48cGF0aCBmaWxsPSIjRjM0RjI5IiBkPSJNMTI0LjczNyA1OC4zNzhMNjkuNjIxIDMuMjY0Yy0zLjE3Mi0zLjE3NC04LjMyLTMuMTc0LTExLjQ5NyAwTDQ2LjY4IDE0LjcxbDE0LjUxOCAxNC41MThjMy4zNzUtMS4xMzkgNy4yNDMtLjM3NSA5LjkzMiAyLjMxNCAyLjcwMyAyLjcwNiAzLjQ2MSA2LjYwNyAyLjI5NCA5Ljk5M2wxMy45OTIgMTMuOTkzYzMuMzg1LTEuMTY3IDcuMjkyLS40MTMgOS45OTQgMi4yOTUgMy43OCAzLjc3NyAzLjc4IDkuOSAwIDEzLjY3OWE5LjY3MyA5LjY3MyAwIDAxLTEzLjY4MyAwIDkuNjc3IDkuNjc3IDAgMDEtMi4xMDUtMTAuNTIxTDY4LjU3NCA0Ny45MzNsLS4wMDIgMzQuMzQxYTkuNzA4IDkuNzA4IDAgMDEyLjU1OSAxLjgyOGMzLjc3OCAzLjc3NyAzLjc3OCA5Ljg5OCAwIDEzLjY4My0zLjc3OSAzLjc3Ny05LjkwNCAzLjc3Ny0xMy42NzkgMC0zLjc3OC0zLjc4NC0zLjc3OC05LjkwNSAwLTEzLjY4M2E5LjY1IDkuNjUgMCAwMTMuMTY3LTIuMTFWNDcuMzMzYTkuNTgxIDkuNTgxIDAgMDEtMy4xNjctMi4xMTFjLTIuODYyLTIuODYtMy41NTEtNy4wNi0yLjA4My0xMC41NzZMNDEuMDU2IDIwLjMzMyAzLjI2NCA1OC4xMjNhOC4xMzMgOC4xMzMgMCAwMDAgMTEuNWw1NS4xMTcgNTUuMTE0YzMuMTc0IDMuMTc0IDguMzIgMy4xNzQgMTEuNDk5IDBsNTQuODU4LTU0Ljg1OGE4LjEzNSA4LjEzNSAwIDAwLS4wMDEtMTEuNTAxeiIvPjwvc3ZnPg==", "github": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjggMTI4Ij48ZyBmaWxsPSIjMTgxNjE2Ij48cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTY0IDUuMTAzYy0zMy4zNDcgMC02MC4zODggMjcuMDM1LTYwLjM4OCA2MC4zODggMCAyNi42ODIgMTcuMzAzIDQ5LjMxNyA0MS4yOTcgNTcuMzAzIDMuMDE3LjU2IDQuMTI1LTEuMzEgNC4xMjUtMi45MDUgMC0xLjQ0LS4wNTYtNi4xOTctLjA4Mi0xMS4yNDMtMTYuOCAzLjY1My0yMC4zNDUtNy4xMjUtMjAuMzQ1LTcuMTI1LTIuNzQ3LTYuOTgtNi43MDUtOC44MzYtNi43MDUtOC44MzYtNS40OC0zLjc0OC40MTMtMy42Ny40MTMtMy42NyA2LjA2My40MjUgOS4yNTcgNi4yMjMgOS4yNTcgNi4yMjMgNS4zODYgOS4yMyAxNC4xMjcgNi41NjIgMTcuNTczIDUuMDIuNTQyLTMuOTAzIDIuMTA3LTYuNTY4IDMuODM0LTguMDc2LTEzLjQxMy0xLjUyNS0yNy41MTQtNi43MDQtMjcuNTE0LTI5Ljg0MyAwLTYuNTkzIDIuMzYtMTEuOTggNi4yMjMtMTYuMjEtLjYyOC0xLjUyLTIuNjk1LTcuNjYyLjU4NC0xNS45OCAwIDAgNS4wNy0xLjYyMyAxNi42MSA2LjE5QzUzLjcgMzUgNTguODY3IDM0LjMyNyA2NCAzNC4zMDRjNS4xMy4wMjMgMTAuMy42OTQgMTUuMTI3IDIuMDMzIDExLjUyNi03LjgxMyAxNi41OS02LjE5IDE2LjU5LTYuMTkgMy4yODcgOC4zMTcgMS4yMiAxNC40Ni41OTMgMTUuOTggMy44NzIgNC4yMyA2LjIxNSA5LjYxNyA2LjIxNSAxNi4yMSAwIDIzLjE5NC0xNC4xMjcgMjguMy0yNy41NzQgMjkuNzk2IDIuMTY3IDEuODc0IDQuMDk3IDUuNTUgNC4wOTcgMTEuMTgzIDAgOC4wOC0uMDcgMTQuNTgzLS4wNyAxNi41NzIgMCAxLjYwNyAxLjA4OCAzLjQ5IDQuMTQ4IDIuODk3IDIzLjk4LTcuOTk0IDQxLjI2My0zMC42MjIgNDEuMjYzLTU3LjI5NEMxMjQuMzg4IDMyLjE0IDk3LjM1IDUuMTA0IDY0IDUuMTA0eiIvPjxwYXRoIGQ9Ik0yNi40ODQgOTEuODA2Yy0uMTMzLjMtLjYwNS4zOS0xLjAzNS4xODUtLjQ0LS4xOTYtLjY4NS0uNjA1LS41NDMtLjkwNi4xMy0uMzEuNjAzLS4zOTUgMS4wNC0uMTg4LjQ0LjE5Ny42OS42MS41MzcuOTF6bTIuNDQ2IDIuNzI5Yy0uMjg3LjI2Ny0uODUuMTQzLTEuMjMyLS4yOC0uMzk2LS40Mi0uNDctLjk4My0uMTc3LTEuMjU0LjI5OC0uMjY2Ljg0NC0uMTQgMS4yNC4yOC4zOTQuNDI2LjQ3Mi45ODQuMTcgMS4yNTV6TTMxLjMxMiA5OC4wMTJjLS4zNy4yNTgtLjk3Ni4wMTctMS4zNS0uNTItLjM3LS41MzgtLjM3LTEuMTgzLjAxLTEuNDQuMzczLS4yNTguOTctLjAyNSAxLjM1LjUwNy4zNjguNTQ1LjM2OCAxLjE5LS4wMSAxLjQ1MnptMy4yNjEgMy4zNjFjLS4zMy4zNjUtMS4wMzYuMjY3LTEuNTUyLS4yMy0uNTI3LS40ODctLjY3NC0xLjE4LS4zNDMtMS41NDQuMzM2LS4zNjYgMS4wNDUtLjI2NCAxLjU2NC4yMy41MjcuNDg2LjY4NiAxLjE4LjMzMyAxLjU0M3ptNC41IDEuOTUxYy0uMTQ3LjQ3My0uODI1LjY4OC0xLjUxLjQ4Ni0uNjgzLS4yMDctMS4xMy0uNzYtLjk5LTEuMjM4LjE0LS40NzcuODIzLS43IDEuNTEyLS40ODUuNjgzLjIwNiAxLjEzLjc1Ni45ODggMS4yMzd6bTQuOTQzLjM2MWMuMDE3LjQ5OC0uNTYzLjkxLTEuMjguOTItLjcyMy4wMTctMS4zMDgtLjM4Ny0xLjMxNS0uODc3IDAtLjUwMy41NjgtLjkxIDEuMjktLjkyNC43MTctLjAxMyAxLjMwNi4zODcgMS4zMDYuODh6bTQuNTk4LS43ODJjLjA4Ni40ODUtLjQxMy45ODQtMS4xMjYgMS4xMTctLjcuMTMtMS4zNS0uMTcyLTEuNDQtLjY1My0uMDg2LS40OTguNDIyLS45OTcgMS4xMjItMS4xMjYuNzE0LS4xMjMgMS4zNTQuMTcgMS40NDQuNjYzem0wIDAiLz48L2c+PC9zdmc+"};
+    document.querySelectorAll('img[data-logo]').forEach(function (img) { img.src = LOGOS[img.dataset.logo]; });
+    var langs = [
+      { name: 'Python', file: 'about_me.py', logo: 'python',
+        html: '<span class="cm"># Python: about me</span>\n<span class="kw">name</span> = <span class="str">"Bharat"</span>\n<span class="kw">course</span> = <span class="str">"BBA(CA)"</span>\n<span class="kw">learning</span> = [<span class="str">"Python"</span>, <span class="str">"Java"</span>, <span class="str">"C++"</span>]\n<span class="kw">print</span>(<span class="str">f"Hi, I am {name}, a {course} student"</span>)' },
+      { name: 'Java', file: 'AboutMe.java', logo: 'java',
+        html: '<span class="kw">public class</span> AboutMe {\n  <span class="kw">public static void</span> main(String[] args) {\n    String name = <span class="str">"Bharat"</span>;\n    String course = <span class="str">"BBA(CA)"</span>;\n    System.out.println(<span class="str">"Hi, I am "</span> + name);\n    System.out.println(<span class="str">"Learning OOP with Java"</span>);\n  }\n}' },
+      { name: 'C++', file: 'about_me.cpp', logo: 'cplusplus',
+        html: '<span class="kw">#include</span> <span class="str">&lt;iostream&gt;</span>\n<span class="kw">using namespace</span> std;\n\n<span class="kw">int</span> main() {\n  string name = <span class="str">"Bharat"</span>;\n  cout &lt;&lt; <span class="str">"Hello, I am "</span> &lt;&lt; name &lt;&lt; endl;\n  cout &lt;&lt; <span class="str">"Practising C++ and problem solving"</span>;\n}' }
+    ];
+
+    var codeEl = document.getElementById('code');
+    var fileEl = document.getElementById('fileName');
+    var logoEl = document.getElementById('langLogo');
+    var tabs = Array.prototype.slice.call(document.querySelectorAll('.lang-tab'));
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var runId = 0, timer = null;
+
+    // Types out HTML while keeping tags and entities intact
+    function typeHTML(html, id, done) {
+      var i = 0, out = '';
+      (function step() {
+        if (id !== runId) return;
+        if (i >= html.length) { done(); return; }
+        if (html[i] === '<') {
+          var end = html.indexOf('>', i);
+          out += html.slice(i, end + 1); i = end + 1;
+        } else if (html[i] === '&') {
+          var semi = html.indexOf(';', i);
+          out += html.slice(i, semi + 1); i = semi + 1;
+        } else { out += html[i++]; }
+        codeEl.innerHTML = out;
+        timer = setTimeout(step, 26);
+      })();
+    }
+
+    function play(i) {
+      runId++;
+      var id = runId, s = langs[i];
+      clearTimeout(timer);
+      fileEl.textContent = s.file;
+      logoEl.src = LOGOS[s.logo];
+      logoEl.alt = s.name + ' logo';
+      tabs.forEach(function (t, k) {
+        t.classList.toggle('active', k === i);
+        t.setAttribute('aria-pressed', k === i ? 'true' : 'false');
+      });
+      codeEl.innerHTML = '';
+      if (reduce) { codeEl.innerHTML = s.html; return; }
+      typeHTML(s.html, id, function () {
+        timer = setTimeout(function () { play((i + 1) % langs.length); }, 2600);
+      });
+    }
+
+    tabs.forEach(function (t) {
+      t.addEventListener('click', function () { play(Number(t.dataset.i)); });
+    });
+    play(0);
+
+
+    </script>
+</body>
+</html>
